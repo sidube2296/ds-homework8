@@ -82,7 +82,11 @@ public class Lexicon {
 	 */
 	private boolean wellFormed() {
 		// TODO: most of the work is done by checkInRange
-		return true;
+		// If all checks pass, the invariant holds
+		return checkInRange(root, null, null) < 0 ? false : 
+		(checkInRange(root, null, null) != manyNodes ? 
+		report("Mismatch in node count: expected " + manyNodes + " but found " + checkInRange(root, null, null)) : 
+		true);
 	}
 
 	private Lexicon(boolean unused) { } // do not modify, used by Spy
