@@ -49,7 +49,6 @@ public class Lexicon {
 	private int checkInRange(Node n, String lo, String hi)
 	{
 		// TODO: Implement this method
-		return -1;
 		/* Check that all strings in the subtree are in the parameter range,
 		 * and none of them are null.
 		 * Report any errors.  If there is an error return a negative number.
@@ -57,6 +56,22 @@ public class Lexicon {
 		 * Otherwise return the number of nodes in the subtree.
 		 * Note that the bounds in recursive calls may be different.
 		 */
+	    if (n == null) return 0;
+
+	    if (n.string == null) return reportNeg("String in node is null");
+
+	    if (lo != null && n.string.compareTo(lo) <= 0) {
+	        return reportNeg("String" + n.string + "falls below the lower bound " + lo + ".");
+	    }
+	    if (hi != null && n.string.compareTo(hi) >= 0) {
+	        return reportNeg("String" + n.string + "falls above the upper bound " + hi + ".");
+	    }
+	    
+	    if (checkInRange(n.left, lo, n.string) < 0)  return -1;
+
+	    if (checkInRange(n.right, n.string, hi) < 0) return -1;
+
+	    return 1 + (checkInRange(n.left, lo, n.string)) + (checkInRange(n.right, n.string, hi));
 	}
 	
 	/**
