@@ -268,12 +268,17 @@ public class Lexicon {
 	 */
 	public int addAll(String[] array, int lo, int hi) {
 		assert wellFormed() : "invariant false at start of addAll()";
-		// TODO: Implement this method (be efficient!)
-		
+		// TODO: Implement this method (be efficient!)		
 		// NB: As long as you never touch any fields directly (or call private methods)
 		// you shouldn't *need* to check the invariant. We will anyway.
+		if (array == null) throw new NullPointerException("Array is null");
+	    int c = 0;
+	    if (lo >= hi) return 0;
+	    if (add(array[(lo + hi) / 2])) c++;
+	    c += addAll(array, lo, (lo + hi) / 2); 
+	    c += addAll(array, ((lo + hi) / 2) + 1, hi);
 		assert wellFormed() : "invariant false at end of addAll()";
-		return -1;
+		return c;
 	}
 	
 	/**
