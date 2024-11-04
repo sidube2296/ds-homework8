@@ -184,10 +184,27 @@ public class Lexicon {
 	 */
 	public void consumeAllWithPrefix(Consumer<String> consumer, String prefix) {
 		// TODO: Implement this to call the helper after preliminary checks (if any)
+		if (consumer == null || prefix == null) 
+			throw new NullPointerException("Consumer and prefix must not be null.");
+	    consumeAllHelper(consumer, prefix, root);
 	}
 	
 	private void consumeAllHelper(Consumer<String> consumer, String prefix, Node n) {
 		// TODO: Implement this (recursive!) helper method.
+	    if (n == null) {
+	        return;
+	    }
+
+	    if (n.string.compareTo(prefix) > 0) {
+	        consumeAllHelper(consumer, prefix, n.left);
+	    }
+	    if (n.string.startsWith(prefix)) {
+	        consumer.accept(n.string);
+	    }
+	    if (n.string.compareTo(prefix) <= 0 || n.string.startsWith(prefix)) {
+	        consumeAllHelper(consumer, prefix, n.right);
+	    }
+
 	}
 	
 	/// Mutators
