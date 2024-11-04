@@ -287,9 +287,17 @@ public class Lexicon {
 	 */
 	private int copyInto(String[] array, Node root, int index) {
 		// TODO: Implement this method
-		return -1;
-	}
-	
+		 if (root == null) {
+		        return index; // Base case: if the node is null, return the current index
+		    }
+
+		    index = copyInto(array, root.left, index);
+		    array[index] = root.string;
+		    index++;
+
+		    // Traverse the right subtree and update the index
+		    return copyInto(array, root.right, index);
+	}	
 	/**
 	 * Return an array of all the strings in this lexicon (in order).
 	 * @param array to use unless null or too small
@@ -298,7 +306,11 @@ public class Lexicon {
 	public String[] toArray(String[] array) {
 		assert wellFormed() : "invariant false at the start of toArray()";
 		// TODO: Implement this method using copyInto after some preliminaries
-		return array;
+	    if (array == null || array.length < manyNodes) {
+	        array = new String[manyNodes];
+	    }
+	    copyInto(array, root, 0);
+	    return array;
 	}
 	
 	/**
