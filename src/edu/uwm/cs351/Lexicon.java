@@ -96,6 +96,8 @@ public class Lexicon {
 	 */
 	public Lexicon() {
 		// TODO: Implement the constructor (BEFORE the assertion!)
+		root = null;
+		manyNodes = 0;
 		assert wellFormed() : "invariant false at end of constructor";
 	}
 	
@@ -106,7 +108,7 @@ public class Lexicon {
 	public int size() {
 		assert wellFormed() : "invariant false at start of size()";
 		// TODO: Implement this method
-		return -1;
+		return manyNodes;
 	}
 	
 	/**
@@ -180,6 +182,34 @@ public class Lexicon {
 		assert wellFormed() : "invariant false at start of add()";
 		boolean result = false;
 		// TODO: Implement this method
+		if (str == null) throw new NullPointerException("String is null.");
+		if (root == null) {
+			root = new Node(str);
+			manyNodes++;
+			result = true;
+		} else {
+			Node c = root;
+			while (true) {
+				if (str.compareTo(c.string) == 0) break;
+				else if (str.compareTo(c.string) < 0) {
+					if (c.left == null) {
+						c.left = new Node(str);
+						manyNodes++;
+						result = true;
+						break;
+					}
+					c = c.left;
+				} else {
+					if (c.right == null) {
+						c.right = new Node(str);
+						manyNodes++;
+						result = true;
+						break;
+					}
+					c = c.right;
+				}
+			}
+		}
 		assert wellFormed() : "invariant false at end of add()";
 		return result;
 	}
