@@ -118,7 +118,11 @@ public class Lexicon {
 	public String getMin() {
 		assert wellFormed() : "invariant false at start of getMin()";
 		// TODO: Implement this method
-		return null;
+	    if (root == null) return null;
+	    Node current = root;
+	    while (current.left != null)
+	        current = current.left;
+	    return current.string;
 	}
 	
 	/**
