@@ -153,7 +153,16 @@ public class Lexicon {
 		assert wellFormed() : "invariant false at start of getNext()";
 		// TODO: Implement this method using a loop!
 		//			Recursion is *NOT* allowed for this method.
-		return null;
+	    if (str == null) throw new NullPointerException("Cannot search for next of null.");
+	    Node c = root;
+	    Node s = null;
+	    while (c != null) {
+	        if (str.compareTo(c.string) < 0) {
+	            s = c;
+	            c = c.left; 
+	        } else c = c.right;
+	    }
+	    return (s != null) ? s.string : null;
 	}
 	
 	/**
