@@ -129,8 +129,15 @@ public class Lexicon {
 	public boolean contains(String str) {
 		assert wellFormed() : "invariant false at start of contains()";
 		// TODO: Implement this method
-		return false;
-	}
+	    if (str == null) return false;
+	    Node c = root;
+	    while (c != null) {
+	        if (str.compareTo(c.string) == 0) return true;
+	        else if (str.compareTo(c.string) < 0) c = c.left;
+	        else c = c.right;
+	    }
+	    return false;
+	  }
 	
 	/**
 	 * Gets the next [lexicographically] greater string than the given string.
